@@ -1,85 +1,82 @@
-/*
-- Scissors Gradient: hsl(39, 89%, 49%) to hsl(40, 84%, 53%)
-- Paper Gradient: hsl(230, 89%, 62%) to hsl(230, 89%, 65%)
-- Rock Gradient: hsl(349, 71%, 52%) to hsl(349, 70%, 56%)
-- Lizard Gradient: hsl(261, 73%, 60%) to hsl(261, 72%, 63%)
-- Cyan: hsl(189, 59%, 53%) to hsl(189, 58%, 57%) 
-*/
-
-@media only screen and (max-width: 840px) {
-  :root {
-    --font-size: 12px;
-    --page-max-width: 600px;
-    --game-width: 360px;
-    --game-min-height: 300px;
-    --icon-size-outer: 100px;
-    --icon-size-inner: 80px;
-    --icon-size-picture: 40px;
-  }
-}
-
-@media only screen and (min-width: 840px) {
-  :root {
-    --font-size: 20px;
-    --page-max-width: 1366px;
-    --game-width: 800px;
-    --game-min-height: 600px;
-    --icon-size-outer: 200px;
-    --icon-size-inner: 160px;
-    --icon-size-picture: 80px;
-  }
-}
+/*-----------------------------------------------------
+ #GLOBAL
+-----------------------------------------------------*/
 
 html {
-  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-family: "Barlow Semi Condensed", sans-serif;
   font-weight: 600;
-  font-size: 24px;
-  font-size: var(--font-size);
+  font-size: calc(5px + 2vmin);
+  text-align: center;
+  text-transform: uppercase;
 }
 
 body {
-  background: no-repeat linear-gradient(hsl(214, 47%, 23%),
-                                        hsl(237, 49%, 15%));
+  display: flex;
+  flex-direction: column;
+
+  background: fixed no-repeat
+    linear-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
   height: 100vh;
   color: hsl(228, 45%, 84%);
-  
-  margin: 1rem auto;
-    
-  max-width: 1366px;
-  max-width: var(--page-max-width);
+
+  margin: 0 auto;
+  max-width: 56rem;
 }
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+a {
+  color: hsl(228, 45%, 84%);
+}
+a:hover {
+  color: crimson;
+}
+
+/* To avoid shrinking some UI elements (buttons, etc) too much on mobile */
+@media only screen and (max-width: 600px) {
+  .fix-min-size {
+    font-size: 16px;
+  }
+}
+
+/* body * { outline: 1px solid red; } */
+
+/*-----------------------------------------------------
+ #HEADER
+-----------------------------------------------------*/
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: auto;
-    border-radius: 5px;
-    border: 2px solid hsl(217, 16%, 45%);
-    
-    /* height: 150px; */
-    max-width: 800px;
-    max-width: var(--game-width);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem auto 0 auto;
+  border-radius: 0.4rem;
+  border: 0.1rem solid hsl(217, 16%, 45%);
+  padding: 0 1rem;
+
+  width: 24rem;
+  max-width: 95vw;
 }
 
-.logo {
-  margin-left: 0.5em;
-  background: no-repeat center center url('images/logo.svg');
-  min-height: 150px;
-  min-height: var(--icon-size-inner);
-  width: 200px;
-  width: var(--icon-size-inner);
-  background-size: var(--icon-size-inner);
+.header__logo {
+  background: no-repeat center center / 9rem url("images/logo.svg");
+  height: 7rem;
+  width: 10rem;
 }
 
-.score {
+.header__score {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 0.4rem;
   height: 50%;
-  margin-right: 1em;
   padding: 0.5em 2em;
   color: hsl(229, 64%, 46%);
   background: white;
@@ -87,139 +84,307 @@ body {
   font-weight: 700;
 }
 
-.score__title {
-  text-transform: uppercase;
-  font-size: 1rem;
-}
-
 .score__number {
   font-size: 3rem;
 }
 
+/*-----------------------------------------------------
+ #CONTENT
+-----------------------------------------------------*/
+
 .game {
   display: flex;
+  flex-direction: column;
   position: relative;
   flex-wrap: wrap;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  /* padding-top: 5rem; */
+  padding-bottom: 1rem;
+}
+
+.game__state {
+  display: flex;
+  justify-content: center;
+}
+
+/*
+ * Game steps:
+ * start: display all .game__choice objects
+ * playerMove: display .choice--player on the left
+ * opponentMove: display .choice--opponent on the right
+ * finish: play animation for winner, display "Play again" button in the middle
+ */
+
+.state--start {
+  flex-wrap: wrap;
+  margin-top: 4rem;
+  width: 24rem;
+  background: no-repeat 50% 66% / 12rem url("images/bg-triangle.svg");
+}
+
+.state--in-progress {
+  display: none;
+  width: 36rem;
+  margin-top: 2rem;
+  justify-content: space-evenly;
+}
+
+.state__middle {
+  display: none;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 2rem;
+}
+
+.middle__title {
+  font-size: 2em;
+  margin-top: 5rem;
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 600px) {
+  .state--in-progress {
+    width: 28rem;
+    flex-wrap: wrap;
+    margin-top: 4rem;
+  }
+
+  .state__player {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .state__middle {
+    margin: 2rem 3rem 0 3rem;
+    order: 3;
+  }
+
+  .choice__title {
+    font-size: 1.2rem;
+  }
+
+  .middle__title {
+    font-size: 3rem;
+    margin: 0;
+  }
+}
+
+.game__choice {
+  display: flex;
+  position: relative;
+  flex-shrink: 0;
+
   justify-content: center;
   align-items: center;
-  margin: auto;
-  background: no-repeat center center / 50% url('images/bg-triangle.svg');
-  
-  min-height: 600px;
-  width: 800px;
-  
-  min-height: var(--game-min-height);
-  width: var(--game-width);
+  border-radius: 50%;
+
+  margin: 0.75rem 1.75rem;
+
+  width: 8rem;
+  height: 8rem;
+
+  z-index: 10;
 }
 
-.btn-rules {
-  display: block;
+.game__choice::before {
+  content: "";
   position: absolute;
-  bottom: 15%;
-  right: 10%;
-  
-  color: hsl(228, 45%, 84%);
-  text-transform: uppercase;
-  text-decoration: none;
-  
-  border-radius: 5px;
-  border: 1px solid gray;
-  padding: 0.5rem 2rem;
+  border-radius: 50%;
+  background: white;
+  box-shadow: inset 0 0.2rem 0.1rem 0 hsl(0, 0%, 80%),
+    0 0 0 0.1rem hsla(0, 0%, 0%, 0.2);
+
+  width: 75%;
+  height: 75%;
+
+  z-index: 20;
 }
 
-.rules {
+.game__choice::after {
+  content: "";
+  width: 43.75%;
+  height: 43.75%;
+  z-index: 30;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+}
+
+.choice--in-progress {
+  width: 10rem;
+  height: 10rem;
+  margin: 0;
+}
+
+.choice__title {
+  padding: 2rem 0;
+}
+
+.choice--none::before {
+  background: hsla(0, 0%, 0%, 0.25);
+  box-shadow: none;
+}
+
+.choice--paper {
+  background: linear-gradient(hsl(230, 89%, 62%), hsl(230, 89%, 65%));
+  box-shadow: 0 0.3rem 0.3rem 0 hsla(0, 0%, 0%, 0.3),
+    0 0.3rem 0 0 hsl(230, 89%, 60%);
+}
+
+.choice--scissors {
+  background: linear-gradient(hsl(39, 89%, 49%), hsl(40, 84%, 53%));
+  box-shadow: 0 0.3rem 0.3rem 0 hsla(0, 0%, 0%, 0.3),
+    0 0.3rem 0 0 hsl(39, 89%, 45%);
+}
+
+.choice--rock {
+  background: linear-gradient(hsl(349, 71%, 52%), hsl(349, 70%, 56%));
+  box-shadow: 0 0.3rem 0.3rem 0 hsla(0, 0%, 0%, 0.3),
+    0 0.3rem 0 0 hsl(349, 71%, 50%);
+}
+
+.choice--paper::after {
+  background-image: url("images/icon-paper.svg");
+}
+.choice--scissors::after {
+  background-image: url("images/icon-scissors.svg");
+}
+.choice--rock::after {
+  background-image: url("images/icon-rock.svg");
+}
+
+.choice--backdrop {
+  position: relative;
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+}
+
+/* Add this to .choice--backdrop element for winner */
+.backdrop--winner {
+  z-index: -1;
+  box-shadow: 0 0 0 2rem hsla(0, 0%, 100%, 0.07),
+    0 0 0 4rem hsla(0, 0%, 100%, 0.05), 0 0 0 6rem hsla(0, 0%, 100%, 0.025);
+}
+
+.game__btn-play-again {
+  display: block;
+  text-decoration: none;
+
+  border-radius: 0.25em;
+  padding: 0.5em 2em;
+  margin: 0.5rem 0;
+
+  color: hsl(229, 25%, 31%);
+  background: white;
+}
+
+.game__btn-rules {
+  display: block;
+  /* flex-grow: 0; */
+
+  /* text-transform: uppercase; */
+  text-decoration: none;
+
+  border-radius: 0.25em;
+  border: 0.1em solid gray;
+  padding: 0.5em 2em;
+}
+
+@media only screen and (min-width: 550px) {
+  .game__btn-rules {
+    align-self: flex-end;
+    margin: 0 1rem;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .game__btn-rules {
+    align-self: center;
+    margin: 2rem 0;
+  }
+}
+
+/*-----------------------------------------------------
+ #MODAL
+-----------------------------------------------------*/
+
+.game__rules {
   position: fixed;
   top: 20%;
+  width: 18rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
   visibility: hidden;
-  /* bottom: 25%; */
-  z-index: 20;
+  /* display: none; */
+  z-index: 1000;
+
   color: black;
   background: white;
-  font-size: 1.5rem;
-  border-radius: 5px;
+
+  border-radius: 0.4rem;
   padding: 1rem 2rem;
 }
 
 .rules__header {
-  display: flex;
-  justify-content: space-between;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   padding-bottom: 1rem;
+  font-size: 1.4rem;
 }
 
-.choices {
-  display: flex;
-  position: absolute;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  
-  min-width: 200px;
-  min-height: 200px;
-  
-  min-width: var(--icon-size-outer);
-  min-height: var(--icon-size-outer);
+.rules__img {
+  width: 18rem;
 }
 
-.choices::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  background: white;
-  box-shadow: inset 0 .3rem .1rem 0 hsl(0, 0%, 80%),
-              0 0 0 .1rem hsla(0, 0%, 0%, 0.2);
-  
-  width: 160px;
-  height: 160px;
-  
-  width: var(--icon-size-inner);
-  height: var(--icon-size-inner);
+@media only screen and (max-width: 550px) {
+  .game__rules {
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    padding: 0;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    border-radius: 0;
+  }
+
+  .rules__header {
+    font-size: 2.5rem;
+  }
+
+  .rules__btn-close {
+    order: 1;
+    transform: scale(2);
+  }
+
+  .rules__img {
+    width: 24rem;
+  }
 }
 
-.choices > .icon {
-  z-index: 10;
-  
-  width: 80px;
-  height: 80px;
-  
-  width: var(--icon-size-picture);
-  height: var(--icon-size-picture);
+/*-----------------------------------------------------
+ #FOOTER
+-----------------------------------------------------*/
+
+.footer {
+  flex-shrink: 0;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  color: hsl(228, 45%, 60%);
+  text-transform: initial;
 }
 
-.paper {
-  background: linear-gradient(hsl(230, 89%, 62%),
-                              hsl(230, 89%, 65%));
-  box-shadow: 0 .5rem .5rem 0 hsla(0, 0%, 0%, 0.2),
-              0 .5rem 0 0 hsl(230, 89%, 60%);
+.footer__attribution {
+  font-size: 0.8rem;
+  text-align: center;
 }
-.scissors {
-  background: linear-gradient(hsl(39, 89%, 49%),
-                              hsl(40, 84%, 53%));
-  box-shadow: 0 .5rem .5rem 0 hsla(0, 0%, 0%, 0.2),
-              0 .5rem 0 0 hsl(39, 89%, 45%);
-}
-.rock {
-  background: linear-gradient(hsl(349, 71%, 52%),
-                              hsl(349, 70%, 56%));
-  box-shadow: 0 .5rem .5rem 0 hsla(0, 0%, 0%, 0.2),
-              0 .5rem 0 0 hsl(349, 71%, 50%);
-}
-
-.top-left {
-  left: 20%;
-  top: 10%;
-}
-
-.top-right {
-  right: 20%;
-  top: 10%;
-}
-
-.bottom {
-  bottom: 20%;
-}
-
-.footer { font-weight: 400; }
-
-.attribution { font-size: 0.8rem; text-align: center; }
-.attribution a { color: hsl(228, 45%, 84%); }

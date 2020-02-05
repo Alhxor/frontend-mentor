@@ -1,57 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  <link rel="stylesheet" href="main.css">
-  <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed&display=swap" rel="stylesheet">
-  
-  <title>Frontend Mentor | Rock, Paper, Scissors</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="main.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed&display=swap"
+      rel="stylesheet"
+    />
 
-</head>
-<body>
-  
-  <header class="header">
-    <div class="logo"></div>
-    <div class="score">
-      <span class="score__title">Score</span>
-      <span class="score__number">10</span>
-    </div>
-  </header>
-  
-  <main>
-    <div class="game">
-      <div class="choices paper top-left">
-        <img class="icon" src="images/icon-paper.svg" alt="">
+    <title>Frontend Mentor | Rock, Paper, Scissors</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__logo"></div>
+      <div class="header__score">
+        <span class="score__title">Score</span>
+        <span class="score__number">10</span>
       </div>
-      <div class="choices scissors top-right">
-        <img class="icon" src="images/icon-scissors.svg" alt="">
-      </div>
-      <div class="choices rock bottom">
-        <img class="icon" src="images/icon-rock.svg" alt="">
-      </div>
-      <a class="btn-rules" id="js-btn-rules" href="#">Rules</a>
-      <section class="rules" id="js-rules-modal">
-        <header class="rules__header">
-          <span>Rules</span>
-          <a href="#" id="js-btn-rules-modal-close">
-            <img src="images/icon-close.svg" alt="">
+    </header>
+
+    <main>
+      <div class="game">
+        <div class="game__state state--start">
+          <figure class="game__choice choice--paper"></figure>
+          <figure class="game__choice choice--scissors"></figure>
+          <figure class="game__choice choice--rock"></figure>
+        </div>
+
+        <div class="game__state state--in-progress">
+          <div class="state__player">
+            <header class="choice__title">You picked</header>
+            <div class="choice--backdrop">
+              <figure
+                class="game__choice choice--in-progress choice--paper choice--winner"
+                id="player-choice"
+              ></figure>
+            </div>
+          </div>
+          <div class="state__middle">
+            <header class="middle__title">You win</header>
+            <a href="#" class="game__btn-play-again fix-min-size">Play again</a>
+          </div>
+          <div class="state__player">
+            <header class="choice__title">The house picked</header>
+            <div class="choice--backdrop">
+              <figure
+                class="game__choice choice--in-progress choice--rock"
+                id="opponent-choice"
+              ></figure>
+            </div>
+          </div>
+        </div>
+
+        <a
+          class="game__btn-rules btn-rules--responsive fix-min-size"
+          id="js-btn-rules"
+          href="#"
+          >Rules</a
+        >
+        <section class="game__rules fix-min-size" id="js-rules-modal">
+          <header class="rules__header">
+            <span>Rules</span>
+          </header>
+          <a class="rules__btn-close" href="#" id="js-btn-rules-modal-close">
+            <img src="images/icon-close.svg" alt="" />
           </a>
-        </header>
-        <img class="rules__img" src="images/image-rules.svg" alt="">
+          <img class="rules__img" src="images/image-rules.svg" alt="" />
+        </section>
       </div>
-    </div>
-  </main>
-  
-  <footer class="footer">
-    <div class="attribution">
-      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-      Coded by <a href="#">Sergei Korchemkin</a>.
-    </div>
-  </footer>
-  
-  <script src="main.js"></script>
-</body>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__attribution">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by
+        <a href="https://github.com/alhxor" target="_blank">Sergei Korchemkin</a
+        >.
+      </div>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
 </html>
