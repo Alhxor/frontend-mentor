@@ -24,37 +24,47 @@
       <div class="header__logo"></div>
       <div class="header__score">
         <span class="score__title">Score</span>
-        <span class="score__number">10</span>
+        <span class="score__number" id="score">0</span>
       </div>
     </header>
 
     <main>
       <div class="game">
-        <div class="game__state state--start">
-          <figure class="game__choice choice--paper"></figure>
-          <figure class="game__choice choice--scissors"></figure>
-          <figure class="game__choice choice--rock"></figure>
+        <div class="game__state state--start" id="layout-start">
+          <figure class="game__choice choice--paper" id="choice-paper"></figure>
+          <figure
+            class="game__choice choice--scissors"
+            id="choice-scissors"
+          ></figure>
+          <figure class="game__choice choice--rock" id="choice-rock"></figure>
         </div>
 
-        <div class="game__state state--in-progress">
+        <div class="game__state state--in-progress" id="layout-in-progress">
           <div class="state__player">
             <header class="choice__title">You picked</header>
-            <div class="choice--backdrop">
+            <div class="choice--backdrop" id="player-backdrop">
               <figure
-                class="game__choice choice--in-progress choice--paper choice--winner"
+                class="game__choice choice--in-progress"
                 id="player-choice"
               ></figure>
             </div>
           </div>
-          <div class="state__middle">
-            <header class="middle__title">You win</header>
-            <a href="#" class="game__btn-play-again fix-min-size">Play again</a>
+          <div class="state__middle" id="game-result">
+            <header class="middle__title" id="game-result__winner">
+              You win
+            </header>
+            <a
+              href="#"
+              class="game__btn-play-again fix-min-size"
+              id="btn-play-again"
+              >Play again</a
+            >
           </div>
           <div class="state__player">
             <header class="choice__title">The house picked</header>
-            <div class="choice--backdrop">
+            <div class="choice--backdrop" id="opponent-backdrop">
               <figure
-                class="game__choice choice--in-progress choice--rock"
+                class="game__choice choice--in-progress choice--none"
                 id="opponent-choice"
               ></figure>
             </div>
