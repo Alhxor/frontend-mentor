@@ -31,12 +31,24 @@
     <main>
       <div class="game">
         <div class="game__state state--start" id="layout-start">
-          <figure class="game__choice choice--paper" id="choice-paper"></figure>
-          <figure
-            class="game__choice choice--scissors"
+          <a
+            href="#"
+            tabindex="1"
+            class="game__choice choice--initial choice--paper"
+            id="choice-paper"
+          ></a>
+          <a
+            href="#"
+            tabindex="2"
+            class="game__choice choice--initial choice--scissors"
             id="choice-scissors"
-          ></figure>
-          <figure class="game__choice choice--rock" id="choice-rock"></figure>
+          ></a>
+          <a
+            href="#"
+            tabindex="3"
+            class="game__choice choice--initial choice--rock"
+            id="choice-rock"
+          ></a>
         </div>
 
         <div class="game__state state--in-progress" id="layout-in-progress">
@@ -54,6 +66,7 @@
               You win
             </header>
             <a
+              tabindex="1"
               href="#"
               class="game__btn-play-again fix-min-size"
               id="btn-play-again"
@@ -72,6 +85,7 @@
         </div>
 
         <a
+          tabindex="4"
           class="game__btn-rules btn-rules--responsive fix-min-size"
           id="js-btn-rules"
           href="#"

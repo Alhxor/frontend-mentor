@@ -17,6 +17,7 @@ body {
   background: fixed no-repeat
     linear-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
   height: 100vh;
+  overflow: hidden;
   color: hsl(228, 45%, 84%);
 
   margin: 0 auto;
@@ -33,7 +34,8 @@ main {
 a {
   color: hsl(228, 45%, 84%);
 }
-a:hover {
+a:hover,
+a:focus {
   color: crimson;
 }
 
@@ -109,19 +111,21 @@ a:hover {
   justify-content: center;
 }
 
-/*
- * Game steps:
- * start: display all .game__choice objects
- * playerMove: display .choice--player on the left
- * opponentMove: display .choice--opponent on the right
- * finish: play animation for winner, display "Play again" button in the middle
- */
-
 .state--start {
   flex-wrap: wrap;
   margin-top: 4rem;
   width: 24rem;
   background: no-repeat 50% 66% / 12rem url("images/bg-triangle.svg");
+  animation: enlarge-from-nothing 1s ease-out forwards;
+}
+
+@keyframes enlarge-from-nothing {
+  0% {
+    transform: scale(0.1);
+  }
+  80% {
+    transform: scale(1.1);
+  }
 }
 
 .state--in-progress {
@@ -213,19 +217,29 @@ a:hover {
   background-size: 80%;
 }
 
+.choice--initial {
+  cursor: pointer;
+}
+
+.choice--initial:hover,
+.choice--initial:focus {
+  transform: scale(1.2);
+  transition-duration: 250ms;
+}
+
 .choice--in-progress {
   width: 10rem;
   height: 10rem;
   margin: 0;
+  animation: enlarge-from-nothing 1s forwards;
 }
 
 .choice__title {
   padding: 2rem 0;
 }
 
-.choice--none::before {
-  background: hsla(0, 0%, 0%, 0.25);
-  box-shadow: none;
+.choice--none {
+  display: none;
 }
 
 .choice--paper {
@@ -259,15 +273,43 @@ a:hover {
 .choice--backdrop {
   position: relative;
   border-radius: 50%;
-  width: 10em;
-  height: 10em;
+  width: 10rem;
+  height: 10rem;
+  background: hsla(0, 0%, 0%, 0.25);
 }
 
 /* Add this to .choice--backdrop element for winner */
-.backdrop--winner {
+.backdrop--winner::after {
+  content: "";
+  position: absolute;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  top: 0;
+  left: 0;
   z-index: -1;
-  box-shadow: 0 0 0 2rem hsla(0, 0%, 100%, 0.07),
-    0 0 0 4rem hsla(0, 0%, 100%, 0.05), 0 0 0 6rem hsla(0, 0%, 100%, 0.025);
+  animation: ripple 1s linear forwards;
+  /* background-image: repeating-radial-gradient(
+    hsla(0, 0%, 100%, 0.4) 0 10%,
+    hsla(0, 0%, 100%, 0.2) 10% 20%
+  ); */
+  /* transform: scale(4); */
+  /* background: hsla(0, 0%, 100%, 0.2); */
+  /* background: hsla(0, 0%, 100%, 0.2); */
+  box-shadow: 0 0 0 2rem hsla(0, 0%, 100%, 0.4), 
+    0 0 0 4rem hsla(0, 0%, 100%, 0.2), 
+    0 0 0 6rem hsla(0, 0%, 100%, 0.1);
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
 }
 
 .game__btn-play-again {
@@ -304,7 +346,7 @@ a:hover {
 @media only screen and (max-width: 550px) {
   .game__btn-rules {
     align-self: center;
-    margin: 2rem 0;
+    margin: .5rem 0 2rem 0;
   }
 }
 
