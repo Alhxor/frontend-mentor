@@ -8,6 +8,7 @@ html {
   font-size: calc(5px + 2vmin);
   text-align: center;
   text-transform: uppercase;
+  height: 100%;
 }
 
 body {
@@ -16,12 +17,13 @@ body {
 
   background: fixed no-repeat
     linear-gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
+  /* height: 100vh; */
   color: hsl(228, 45%, 84%);
 
   margin: 0 auto;
   max-width: 56rem;
+  overflow: hidden;
 }
 
 main {
@@ -39,8 +41,9 @@ a:focus {
   color: crimson;
 }
 
-/* To avoid shrinking some UI elements (buttons, etc) too much on mobile */
 @media only screen and (max-width: 600px) {
+  /* body { height: 95vh; } */
+  /* To avoid shrinking some UI elements (buttons, etc) too much on mobile */
   .fix-min-size {
     font-size: 16px;
   }
@@ -57,7 +60,7 @@ a:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2rem auto 0 auto;
+  margin: 1rem auto;
   border-radius: 0.4rem;
   border: 0.1rem solid hsl(217, 16%, 45%);
   padding: 0 1rem;
@@ -91,19 +94,18 @@ a:focus {
 }
 
 /*-----------------------------------------------------
- #CONTENT
+ #GAME_LAYOUT
 -----------------------------------------------------*/
 
 .game {
   display: flex;
   flex-direction: column;
   position: relative;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   height: 100%;
   justify-content: space-between;
   align-items: center;
-  /* padding-top: 5rem; */
-  padding-bottom: 1rem;
+  padding: 1rem;
 }
 
 .game__state {
@@ -113,7 +115,6 @@ a:focus {
 
 .state--start {
   flex-wrap: wrap;
-  margin-top: 4rem;
   width: 24rem;
   background: no-repeat 50% 66% / 12rem url("images/bg-triangle.svg");
   animation: enlarge-from-nothing 1s ease-out forwards;
@@ -131,13 +132,11 @@ a:focus {
 .state--in-progress {
   display: none;
   width: 36rem;
-  margin-top: 2rem;
   justify-content: space-evenly;
 }
 
 .state__middle {
   display: none;
-  /* display: flex; */
   flex-direction: column;
   justify-content: center;
   margin: 0 2rem;
@@ -145,7 +144,7 @@ a:focus {
 
 .middle__title {
   font-size: 2em;
-  margin-top: 5rem;
+  margin-top: 2rem;
   white-space: nowrap;
 }
 
@@ -153,7 +152,6 @@ a:focus {
   .state--in-progress {
     width: 28rem;
     flex-wrap: wrap;
-    margin-top: 4rem;
   }
 
   .state__player {
@@ -162,7 +160,7 @@ a:focus {
   }
 
   .state__middle {
-    margin: 2rem 3rem 0 3rem;
+    margin: .5rem 3rem 0 3rem;
     order: 3;
   }
 
@@ -175,6 +173,10 @@ a:focus {
     margin: 0;
   }
 }
+
+/*-----------------------------------------------------
+ #GAME_UI_ELEMENTS
+-----------------------------------------------------*/
 
 .game__choice {
   display: flex;
@@ -326,9 +328,7 @@ a:focus {
 
 .game__btn-rules {
   display: block;
-  /* flex-grow: 0; */
 
-  /* text-transform: uppercase; */
   text-decoration: none;
 
   border-radius: 0.25em;
@@ -339,14 +339,12 @@ a:focus {
 @media only screen and (min-width: 550px) {
   .game__btn-rules {
     align-self: flex-end;
-    margin: 0 1rem;
   }
 }
 
 @media only screen and (max-width: 550px) {
   .game__btn-rules {
     align-self: center;
-    margin: .5rem 0 2rem 0;
   }
 }
 
@@ -375,7 +373,6 @@ a:focus {
 }
 
 .rules__header {
-  /* text-transform: uppercase; */
   padding-bottom: 1rem;
   font-size: 1.4rem;
 }
