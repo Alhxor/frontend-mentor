@@ -160,7 +160,7 @@ a:focus {
   }
 
   .state__middle {
-    margin: .5rem 3rem 0 3rem;
+    margin: 0.5rem 3rem 0 3rem;
     order: 3;
   }
 
@@ -298,9 +298,8 @@ a:focus {
   /* transform: scale(4); */
   /* background: hsla(0, 0%, 100%, 0.2); */
   /* background: hsla(0, 0%, 100%, 0.2); */
-  box-shadow: 0 0 0 2rem hsla(0, 0%, 100%, 0.4), 
-    0 0 0 4rem hsla(0, 0%, 100%, 0.2), 
-    0 0 0 6rem hsla(0, 0%, 100%, 0.1);
+  box-shadow: 0 0 0 2rem hsla(0, 0%, 100%, 0.4),
+    0 0 0 4rem hsla(0, 0%, 100%, 0.2), 0 0 0 6rem hsla(0, 0%, 100%, 0.1);
 }
 
 @keyframes ripple {

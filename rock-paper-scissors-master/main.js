@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
   /**
    * Maps moveIds to MOVES
    * @param  {String} id
+   * @returns {String} one of MOVES
    */
   function getMoveById(id) {
     switch (id) {
@@ -101,9 +102,11 @@ document.addEventListener("DOMContentLoaded", function() {
    * @param  {String} playerMove
    * @param  {String} opponentMove
    * @param  {Object} gameState
-   * @returns {Object} gameState
+   * @returns {Object} gameState after the round end
    */
   function newRound(playerMove, opponentMove, gameState) {
+    /* SELF-REVIEW: this function would look nicer in a declarative style */
+
     const state = { ...gameState };
 
     state.playerChoice = playerMove;
@@ -112,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const scoreChange = roundScore(playerMove, opponentMove);
     state.score += scoreChange;
 
-    let winnerBackdrop;
+    let winnerBackdrop; /* SELF-REVIEW: needs a null check every time */
     if (scoreChange)
       winnerBackdrop = scoreChange == 1 ? playerBackdrop : opponentBackdrop;
 
@@ -158,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function() {
   /**
    * Setup new round on "Play again" click
    */
+  /* SELF-REVIEW: IE is not supported anyway, could use addEventListener instead */
   document.getElementById("btn-play-again").onclick = function setupNewRound() {
     layoutInProgress.style.display = "none";
     gameResult.style.display = "none";
@@ -175,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function() {
    * Show an overlay with rules on "Rules" click
    * Close overlay on cross click
    */
-
+  /* SELF-REVIEW: Closing modal on a click outside of it is a good practice */
   const modalRules = document.getElementById("js-rules-modal");
 
   document.getElementById("js-btn-rules").onclick = function openRulesModal(e) {
