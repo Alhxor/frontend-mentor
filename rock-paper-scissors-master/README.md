@@ -1,5 +1,7 @@
 # Frontend Mentor - Rock, Paper, Scissors
 
+App in action: https://alhxor.github.io/frontend-mentor/rock-paper-scissors-master/
+
 ![Design preview for the Rock, Paper, Scissors coding challenge](./design/desktop-preview.jpg)
 
 ## Welcome! 👋
